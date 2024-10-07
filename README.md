@@ -18,6 +18,7 @@ to downlaod file....."prefetch"
 '''
 The command "zcat" is used to view the contents of a compressed file without uncompressing it permanently.
 '''
+
 '''
 find . -name "*.sra" -exec fastq-dump {} \; this command to fiund all the sra files in your directory and convert them to fastQ format.
 '''
