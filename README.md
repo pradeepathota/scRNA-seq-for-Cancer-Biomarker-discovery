@@ -1,79 +1,62 @@
 # project-lab
 
-terminal open command 
-:- ssh username@quartz.uits.iu.edu
+#!/bin/bash
 
-to create new environment in conda
-:- "conda create -n new"
+# Connect to Quartz Cluster
+ssh username@quartz.uits.iu.edu
 
-to install library
-:- "conda install library name"
+# Set up the environment
+conda create -n new_environment_name
+conda activate new_environment_name
+conda install library_name
 
-to dwonlaod the file
-:- "prefetch"
+# Download SRA files
+prefetch <accession_id>
 
-'''
-The command "zcat" is used to view the contents of a compressed file without uncompressing it permanently.
+# Convert SRA files to FASTQ format
+find . -name "*.sra" -exec fastq-dump {} ;
 
+# View the contents of a compressed file
+zcat file_name.gz
 
-converting the files to fastq format
-:- find . -name "*.sra" -exec fastq-dump {} \; this command to find all the sra files in your directory and convert them to fastQ format.
+# Perform quality control using FastQC
+fastqc *.fastq
 
-quality control
-:- fastqc ".fastq".
+# Trim low-quality reads using fastp
+fastp -i input.fastq -o trimmed_output.fastq -h fastp_report.html -j fastp_report.json
 
-trimming the data to remove the low quality reads
-:- i did trimming with the "fastp" tool
+# Download the human reference genome (GRCh38)
+wget ftp://ftp.ensembl.org/pub/release-109/gtf/homo_sapiens/Homo_sapiens.GRCh38.109.gtf.gz
+gunzip Homo_sapiens.GRCh38.109.gtf.gz
 
-:- here is the command "fastp -i *.fastq -o trimmed_*.fastq -h fastp_report.html -j fastp_report.json"
-
-alignment
-:- for the alignment w ehave to download the reference genome that is hg38 fro humann and to download that "wget ftp://ftp.ensembl.org/pub/release-109/gtf/homo_sapiens/Homo_sapiens.GRCh38.109.gtf.gz" and have to unzip that "gunzip Homo_sapiens.GRCh38.109.gtf.gz"
-then the alignment using the bwa.
-
-:- first we have to do indexing for the reference genome for that below is the command.
-
-job submission in quartz
-:-#!/bin/bash
+# Create a job script for genome indexing
+cat <<EOT > bwa_index_job.sh
+#!/bin/bash
 
 #SBATCH -J bwa_index
-
 #SBATCH -p general
-
 #SBATCH -o bwa_index_output.log_%j.txt
-
-#SBATCH -ebwa_index_error.log_%j.err
-
+#SBATCH -e bwa_index_error.log_%j.err
 #SBATCH --mail-type=ALL
-
-#SBATCH --mail-user=vathota@iu.edu
-
+#SBATCH --mail-user=<your_email>
 #SBATCH --nodes=1
-
 #SBATCH --ntasks-per-node=1
-
 #SBATCH --time=04:00:00
-
 #SBATCH --mem=100G
-
 #SBATCH -A r00750
 
-#Load BWA module if available, or ensure BWA is accessible
+module load bwa
 
-module load bwa                       # Use this if BWA is available as a module
-
-#or activate the environment where BWA is installed
-
-#source activate bioenv               # Uncomment if using a Conda environment with BWA
-
-# Run BWA indexing
-
+# Indexing the reference genome
 bwa index GRCh38.primary_assembly.genome.fa
+EOT
 
-# alignment
-the command for the alignment
+# Submit the genome indexing job
+sbatch bwa_index_job.sh
 
-:- bwa mem -t 4 GRCh38.primary_assembly.genome.fa trimmed_*.fastq > *_aligned_bwa.sam
+# Perform alignment using BWA
+bwa mem -t 4 GRCh38.primary_assembly.genome.fa trimmed_*.fastq > output_aligned_bwa.sam
+
 
 
 
