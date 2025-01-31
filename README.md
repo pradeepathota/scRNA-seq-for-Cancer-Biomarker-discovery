@@ -5,7 +5,7 @@
 # Connect to Quartz Cluster
 ssh username@quartz.uits.iu.edu
 
-# Set up the environment
+# Set up the environment it is not mandatory to create unless you require a specific environment to work in
 conda create -n new_environment_name
 conda activate new_environment_name
 conda install library_name
