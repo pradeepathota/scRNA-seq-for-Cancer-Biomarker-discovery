@@ -14,7 +14,7 @@ conda install library_name
 prefetch <accession_id>
 
 # Convert SRA files to FASTQ format
-find . -name "*.sra" -exec fastq-dump {} ;
+find . -name "*.sra" -exec fastq-dump {} \;
 
 # View the contents of a compressed file
 zcat file_name.gz
