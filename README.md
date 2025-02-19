@@ -12,6 +12,7 @@ This repository documents an **ScRNA-Seq analysis pipeline** using **FASTQ prepr
 - [Read Alignment](#read-alignment)
 - [Job Submission on SLURM](#job-submission-on-slurm)
 - [Results and Outputs](#results-and-outputs)
+- [Gene Quantification with featureCounts](#gene-quantification-with-featurecounts)
 - [References](#references)
 
 ---
@@ -186,6 +187,20 @@ Check alignment quality:
 samtools flagstat alignments/SRRxxxxxxx_sorted.bam
 ```
 
+---
+
+## Gene quantification with featureCounts:
+
+```
+featureCounts -T 8 \
+  -a Homo_sapiens.GRCh38.109.gtf \
+  -o featurecounts_output/gene_counts.txt \
+  -g gene_id \
+  -t exon \
+  -s 2 \
+  --extraAttributes gene_name \
+  trimmed_aligned/*.bam
+```
 ---
 
 ## References
