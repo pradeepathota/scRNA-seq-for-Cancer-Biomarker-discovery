@@ -153,7 +153,7 @@ cat <<EOT > star_alignment_job.sh
 #SBATCH --ntasks-per-node=16
 #SBATCH --time=08:00:00
 #SBATCH --mem=100G
-#SBATCH -A r00750
+#SBATCH -A r00000 #project account code
 
 module load star
 
