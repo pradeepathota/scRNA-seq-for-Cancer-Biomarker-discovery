@@ -173,22 +173,6 @@ sbatch star_alignment_job.sh
 
 ---
 
-## Results and Outputs
-The pipeline generates:
-- **Quality reports** (`fastqc_reports/`)
-- **Trimmed reads** (`trimmed_data/`)
-- **Genome index** (`star_genome_index/`)
-- **Aligned BAM files** (`alignments/`)
-- **Log files** (`alignments/*.log`)
-
-Check alignment quality:
-
-```bash
-samtools flagstat alignments/SRRxxxxxxx_sorted.bam
-```
-
----
-
 ## Gene quantification with featureCounts:
 
 ```
@@ -202,6 +186,23 @@ featureCounts -T 8 \
   trimmed_aligned/*.bam
 ```
 ---
+
+## Results and Outputs
+The pipeline generates:
+- **Quality reports** (`fastqc_reports/`)
+- **Trimmed reads** (`trimmed_data/`)
+- **Genome index** (`star_genome_index/`)
+- **Aligned BAM files** (`alignments/`)
+- **Log files** (`alignments/*.log`)
+- **countmatrix**(`featurecounts/`)
+
+Check alignment quality:
+
+```bash
+samtools flagstat alignments/SRRxxxxxxx_sorted.bam
+```
+
+
 
 ## References
 - [STAR Manual](https://github.com/alexdobin/STAR)
