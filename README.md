@@ -1,6 +1,6 @@
 # ScRNA-Seq Analysis Pipeline
 
-This repository documents an **ScRNA-Seq analysis pipeline** including **FASTQ preprocessing, quality control, genome indexing, alignment**, and **downstream analysis** using **Seurat**, **DESeq2**, and **clusterProfiler**.
+This repository provides a comprehensive and reproducible single-cell RNA sequencing (scRNA-seq) analysis pipeline, specifically designed for comparing tumor and normal tissue samples. The workflow encompasses every critical step, from initial FASTQ file preprocessing and stringent quality control to advanced downstream bioinformatics analysis.
 
 ---
 
