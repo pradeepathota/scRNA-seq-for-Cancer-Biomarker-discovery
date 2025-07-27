@@ -3,8 +3,11 @@
 This repository documents an **ScRNA-Seq analysis pipeline** including **FASTQ preprocessing, quality control, genome indexing, alignment**, and **downstream analysis** using **Seurat**, **DESeq2**, and **clusterProfiler**.
 
 ---
-## Author
-**Venkata pradeep kumar Athota**
+## 👨‍💻 Author
+
+**Venkata Pradeep Kumar Athota**  
+📧 pradeepathota3@gmail.com  
+🔗 [LinkedIn](https://linkedin.com/in/pradeepathota)
 
 
 ## Table of Contents
